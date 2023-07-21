@@ -29,11 +29,13 @@ if __name__ == "__main__":
     df = pd.read_csv("companies_sorted.csv", encoding="utf-8")
 
     # take random sample of 10000 rows
-    df = df.sample(n=10000)
+    df = df.sample(n=2000)
 
     # iterate through rows
     total_time = 0
+    cnt = 0
     for i, row in df.iterrows():
+        cnt += 1
         # get name
         name = row["name"]
 
@@ -44,8 +46,7 @@ if __name__ == "__main__":
         total_time += duration
 
         # print progress
-        if(i % 10 == 0):
-            print(f"Profiled {i} records / 10000")
+        print(f"Sample and profiled searching for random record {i}th ({cnt} records): {name} ({duration} ms)")
 
     # print average
     print( "\n-----------------------------------")
