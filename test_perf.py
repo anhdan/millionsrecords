@@ -11,14 +11,16 @@ collection = db["7Mcompanies"]
 def profiling_search( query: str ):
 
     # start timer
-    start = datetime.datetime.now()
+    # start = datetime.datetime.now()
 
     # search
-    result = collection.find_one( { "name": {"$regex" : query} } )
+    # https://www.analyticsvidhya.com/blog/2020/09/mongodb-indexes-pymongo-tutorial/
+    # duration = collection.find( { "name": {"$regex" : query} } ).explain()['executionStats']['executionTimeMillis']
+    duration = collection.find( {"$text": {"$search": query}} ).explain()['executionStats']['executionTimeMillis']
 
     # end timer
-    end = datetime.datetime.now()
-    duration = (end - start).total_seconds() * 1000
+    # end = datetime.datetime.now()
+    # duration = (end - start).total_seconds() * 1000
 
     return duration
 
